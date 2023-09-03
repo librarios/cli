@@ -1,0 +1,45 @@
+version: 3
+
+vars:
+  DIST_DIR: ./dist
+
+tasks:
+  build:
+    cmds:
+      - go build -ldflags "-s -w" -o {{.DIST_DIR}}/yes24 ./cmd/yes24
+    env:
+      CGO_ENABLED: 0
+
+  build-windows-amd64:
+    cmds:
+      - go build -ldflags "-s -w" -o {{.DIST_DIR}}/yes24-windows-amd64.exe ./cmd/yes24
+    env:
+      CGO_ENABLED: 0
+      GOOS: windows
+      GOARCH: amd64
+
+  build-darwin-arm64:
+    cmds:
+      - go build -ldflags "-s -w" -o {{.DIST_DIR}}/yes24-darwin-arm64 ./cmd/yes24
+    env:
+      CGO_ENABLED: 0
+      GOOS: darwin
+      GOARCH: arm64
+
+  build-linux-amd64:
+    cmds:
+      - go build -ldflags "-s -w" -o {{.DIST_DIR}}/yes24-linux-amd64 ./cmd/yes24
+    env:
+      CGO_ENABLED: 0
+      GOOS: linux
+      GOARCH: amd64
+
+  build-all:
+    cmds:
+      - task: build-windows-amd64
+      - task: build-darwin-arm64
+      - task: build-linux-amd64
+
+  test:
+    cmds:
+      - go test -count=1 ./...
