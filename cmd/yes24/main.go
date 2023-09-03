@@ -23,7 +23,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	basename := fmt.Sprintf("%s (%s)", info.Title, info.GetPublishedYear())
+	basename := yes24.NormalizeFilename(
+		fmt.Sprintf("%s (%s)", info.Title, info.GetPublishedYear()),
+	)
 
 	bookInfoFilename := fmt.Sprintf("%s.txt", basename)
 	if err = yes24.WriteBookInfo(info, bookInfoFilename); err != nil {
