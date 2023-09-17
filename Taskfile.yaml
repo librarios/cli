@@ -40,6 +40,10 @@ tasks:
       - task: build-darwin-arm64
       - task: build-linux-amd64
 
+  run:
+    cmds:
+      - go run cmd/yes24/main.go {{.CLI_ARGS}}
+
   test:
     cmds:
       - go test -count=1 ./...

@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/librarios/cli/internal/app/yes24"
 	"log/slog"
 	"os"
+
+	"github.com/librarios/cli/internal/app/yes24"
 )
 
 func main() {
