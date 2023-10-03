@@ -84,9 +84,14 @@ func DownloadPreviewImages(id string, dir string) error {
 		return err
 	}
 
+	count := len(urls)
 	for i, url := range urls {
 		ext := filepath.Ext(url)
-		outputFilename := filepath.Join(dir, fmt.Sprintf("%03d%s", i, ext))
+		filenameNo := i + 1
+		if filenameNo == count {
+			filenameNo = 999
+		}
+		outputFilename := filepath.Join(dir, fmt.Sprintf("%03d%s", filenameNo, ext))
 		if err = net.Download(url, outputFilename); err != nil {
 			return fmt.Errorf("failed to download %s : %+v", url, err)
 		} else {
